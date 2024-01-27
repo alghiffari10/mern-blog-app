@@ -20,6 +20,7 @@ export default function SignUp() {
       setErrorMessage(null);
       const response = await axios.post('/api/auth/signup', formData);
       setLoading(false);
+
       if (response.status === 200) {
         navigate('/sign-in');
       }

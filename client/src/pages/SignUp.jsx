@@ -2,6 +2,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { Alert, Button, Label, Spinner, TextInput } from 'flowbite-react';
 import { useState } from 'react';
 import axios from 'axios';
+import OAuth from '../components/OAuth';
 export default function SignUp() {
   const [formData, setFormData] = useState({});
   const [errorMessage, setErrorMessage] = useState(null);
@@ -77,7 +78,7 @@ export default function SignUp() {
               />
             </div>
             <Button
-              className="bg-gradient-to-r from-gray-700 via-gray-900 to-black hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-gray-300 dark:focus:ring-gray-800 transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-110"
+              className="bg-gradient-to-r from-gray-700 via-gray-900 to-black hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-gray-300 dark:focus:ring-gray-800 transition ease-in-out delay-150  "
               type="submit"
               disabled={loading}>
               {loading ? (
@@ -89,6 +90,7 @@ export default function SignUp() {
                 'Sign Up'
               )}
             </Button>
+            <OAuth />
           </form>
           <div className="flex gap-2 text-sm mt-5">
             <span>Have an account?</span>

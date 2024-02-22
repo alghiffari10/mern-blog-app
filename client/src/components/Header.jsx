@@ -8,7 +8,7 @@ import { toggleTheme } from '../redux/theme/themeSlice';
 export default function Header() {
   const path = useLocation().pathname;
   const dispatch = useDispatch();
-  const { currentUser } = useSelector((state) =>  .user);
+  const { currentUser } = useSelector((state) => state.user);
   const { theme } = useSelector((state) => state.theme);
 
   return (

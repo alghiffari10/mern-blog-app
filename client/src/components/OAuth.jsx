@@ -7,47 +7,31 @@ import { useDispatch } from 'react-redux';
 import { signInSuccessed } from '../redux/user/userSlice';
 import { useNavigate } from 'react-router-dom';
 export default function OAuth() {
+  const auth = getAuth(app);
   const dispatch = useDispatch();
-  const navigate = useDispatch();
+  const navigate = useNavigate();
   const handleGoogleClick = async () => {
-    const auth = getAuth(app);
     const provider = new GoogleAuthProvider();
     provider.setCustomParameters({
       prompt: 'select_account',
     });
     try {
       const getResultFromGoogle = await signInWithPopup(auth, provider);
-      // const res = await fetch('/api/auth/google', {
-      //   method: 'POST',
-      //   headers: {
-      //     'Content-Type': 'application/json',
-      //   },
-      //   body: JSON.stringify({
-      //     name: getResultFromGoogle.user.displayName,
-      //     email: getResultFromGoogle.user.email,
-      //     googlePhoto: getResultFromGoogle.user.photoURL,
-      //   }),
-      // });
-      // const data = await res.json();
-      // if (res.ok) {
-      //   dispatch(signInSuccessed(data));
-      //   navigate('/');
-      // }
-      const data = {
-        name: getResultFromGoogle.user.displayName,
-        email: getResultFromGoogle.user.email,
-        googlePhoto: getResultFromGoogle.user.photoURL,
-      };
-      const response = await axios.post('/api/auth/google', data, {
+      const res = await fetch('/api/auth/google', {
+        method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
+        body: JSON.stringify({
+          name: getResultFromGoogle.user.displayName,
+          email: getResultFromGoogle.user.email,
+          googlePhoto: getResultFromGoogle.user.photoURL,
+        }),
       });
-      // Handle successful response:
-      if (response.status === 200) {
-        // Check for valid status code
-        dispatch(signInSuccessed(response.data));
-        navigate('/'); // Using useNavigate here
+      const data = await res.json();
+      if (res.ok) {
+        dispatch(signInSuccessed(data));
+        navigate('/');
       }
     } catch (error) {
       console.log(error);
